@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ppf-black: #0a0a0a;
+  --color-ppf-dark: #111111;
+  --color-ppf-gray: #1a1a1a;
+  --color-ppf-mid: #2a2a2a;
+  --color-ppf-light: #8a8a8a;
+  --color-ppf-orange: #ff6b00;
+  --color-ppf-orange-dim: #cc5500;
+  --color-ppf-white: #f5f5f5;
+  --color-ppf-chalk: #e0ddd5;
+}
+
+/* ─── BASE ──────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #ff6b00 #111;
+}
+
+body {
+  background: #0a0a0a;
+  color: #f5f5f5;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: #ff6b00;
+  color: #0a0a0a;
+}
+
+/* ─── TURF TEXTURE ──── */
+.turf-texture {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 3px,
+      rgba(255,255,255,.012) 3px,
+      rgba(255,255,255,.012) 4px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(255,255,255,.008) 3px,
+      rgba(255,255,255,.008) 4px
+    );
+}
+
+/* ─── HASH MARKS ──────────────────────── */
+.hash-marks {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 80px,
+      rgba(255,255,255,.04) 80px,
+      rgba(255,255,255,.04) 81px
+    );
+}
+
+/* ─── GLASS PANEL ─────────────────────── */
+.glass-panel {
+  background: rgba(17,17,17,.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+/* ─── METRIC CARD ─────────────────────── */
+.metric-card {
+  background: linear-gradient(135deg, rgba(26,26,26,.9), rgba(17,17,17,.95));
+  border: 1px solid rgba(255,107,0,.15);
+  box-shadow: 0 0 20px rgba(255,107,0,.05);
+}
+
+/* ─── ORANGE GLOW ─────────────────────── */
+.orange-glow {
+  box-shadow: 0 0 30px rgba(255,107,0,.2), 0 0 60px rgba(255,107,0,.1);
+}
+
+.orange-glow-text {
+  text-shadow: 0 0 20px rgba(255,107,0,.4);
+}
+
+/* ─── STANDARD METER RAIL ─────────────── */
+.standard-meter {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 100vh;
+  z-index: 40;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .standard-meter {
+    display: none;
+  }
+}
+
+/* ─── SCAN LINE ───────────────────────── */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.scan-line {
+  animation: scanline 8s linear infinite;
+}
+
+/* ─── BOOT BLINK ──────────────────────── */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* ─── GRID OVERLAY ────────────────────── */
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ─── FIELD LINE ──────────────────────── */
+.field-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.08) 20%, rgba(255,255,255,.08) 80%, transparent);
+}
+
+/* ─── CUSTOM SCROLLBAR (webkit) ───────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #111;
+}
+::-webkit-scrollbar-thumb {
+  background: #ff6b00;
+  border-radius: 3px;
+}
+
+/* ─── ATHLETE CARD HOVER ──────────────── */
+.athlete-card {
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+.athlete-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 8px 32px rgba(255,107,0,.15);
+}
+
+/* ─── SECTION DIVIDER ─────────────────── */
+.section-divider {
+  position: relative;
+}
+.section-divider::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,107,0,.2) 30%, rgba(255,107,0,.2) 70%, transparent);
+}
+
+/* ─── PULSE RING ──────────────────────── */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: .4; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid #ff6b00;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* ─── BOOT SEQUENCE ───────────────────── */
+@keyframes boot-glow {
+  0% { opacity: 0; filter: blur(10px); }
+  60% { opacity: 1; filter: blur(0px); }
+  100% { opacity: 1; filter: blur(0px); }
+}
+
+.boot-item {
+  animation: boot-glow .6s ease-out forwards;
+  opacity: 0;
+}
+
+/* ─── INTAKE FORM ─────────────────────── */
+input, textarea, select {
+  caret-color: #ff6b00;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #ff6b00 !important;
+  box-shadow: 0 0 0 1px rgba(255,107,0,.3);
+}
